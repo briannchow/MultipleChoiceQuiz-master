@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:layout_width="352dp"
+        android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:hint="Username"
         android:id="@+id/editUsername"/>
