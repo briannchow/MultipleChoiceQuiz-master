@@ -23,10 +23,12 @@ public class QuizActivity extends AppCompatActivity {
     private Button mButtonChoice4;
     private Button mButtonCheat;
     private ImageView mMoviePoster;
+    private TextView mPlayerScore;
     private String mAnswer;
     private int mScore = 0;
     private int mQuestionNumber = 0;
     public final static String EXTRA_QUIZ_SCORE = "com.example.MultipleChoiceQuiz-master.SCORE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class QuizActivity extends AppCompatActivity {
         mButtonChoice4 = (Button)findViewById(R.id.choice4);
         mButtonCheat =(Button)findViewById(R.id.cheat);
         mMoviePoster = (ImageView) findViewById(R.id.Poster1);
+        mPlayerScore = (TextView) findViewById(R.id.score_text);
+
 
         updateQuestion();
 
@@ -150,7 +154,10 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void updateQuestion(){
-
+        String Player = getIntent().getStringExtra("Username");
+        if(Player == "Xu Jia Wei" || Player == "Jia Wei") {
+            Player = "Donkey Teeth";
+        }
 
         if (mQuestionNumber < mQuestionLibrary.getNumOfQuestions()) {
             mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
@@ -159,6 +166,7 @@ public class QuizActivity extends AppCompatActivity {
             mButtonChoice2.setText(mQuestionLibrary.getChoice2(mQuestionNumber));
             mButtonChoice3.setText(mQuestionLibrary.getChoice3(mQuestionNumber));
             mButtonChoice4.setText(mQuestionLibrary.getChoice4(mQuestionNumber));
+            mPlayerScore.setText(Player + "'s " +"Score:");
             mQuestionNumber++;
             mMoviePoster.setImageResource(R.drawable.titanic_2_2d_pack_shot1);
 
@@ -166,6 +174,7 @@ public class QuizActivity extends AppCompatActivity {
             // call for score board
             Intent i = new Intent(QuizActivity.this, ScoreboardActivity.class);
             i.putExtra("Get_Score", mScore);
+            i.putExtra("Name", Player);
             startActivity(i);
         }
     }

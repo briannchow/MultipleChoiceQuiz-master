@@ -15,8 +15,9 @@ public class ScoreboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scoreboard);
         Intent i = getIntent();
         int Total_Score = i.getIntExtra("Get_Score", 0);
+        String Player_Name = i.getStringExtra("Name");
         mFinalScoreBox = (TextView) findViewById(R.id.final_score);
-        mFinalScoreBox.setText(" " + Total_Score);
+        mFinalScoreBox.setText(Player_Name+ "'s Score is: " + Total_Score);
 
 
     }
