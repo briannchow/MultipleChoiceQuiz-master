@@ -31,7 +31,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play Again/Other player"/>
+            android:text="Play Again/Other player"
+            android:id="@+id/start_button"/>
 
     </LinearLayout>
 
@@ -44,6 +45,14 @@
         android:id="@+id/leaderboard">
 
 
+        <Button
+            android:text="Record Score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/linearLayout"
+            android:layout_toEndOf="@+id/linearLayout"
+            android:id="@+id/Record_Score"/>
     </FrameLayout>
 
 

@@ -11,8 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME="names.db";
+    //private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME="Names.db";
     private static final String TABLE_NAME="names_table";
     private static final String COLUMN_ID = "ID";
     private static final String COLUMN_NAME ="Player";
@@ -22,14 +22,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase db;
 
     public DatabaseHelper(Context context) {
-        super(context , DATABASE_NAME , null , DATABASE_VERSION);
+        super(context , DATABASE_NAME , null , 1);
 
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, SCORE INTEGER)");
+        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,PLAYER TEXT, SCORE INTEGER)");
 
 
     }
@@ -37,17 +37,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String query = "DROP TABLE IF EXISTS" + TABLE_NAME;
-        db.execSQL(query);
-        this.onCreate(db);
-
+        db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME);
+        onCreate(db);
     }
 
-    public boolean insertData(String name, String score) {
+    public boolean insertData(String Player, int Score) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_NAME, name);
-        contentValues.put(COLUMN_SCORE, score);
+        contentValues.put(COLUMN_NAME, Player);
+        contentValues.put(COLUMN_SCORE, Score);
         db.insert(TABLE_NAME, null, contentValues);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1) {
