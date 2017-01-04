@@ -36,24 +36,26 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="400dp"
+    <Button
+        android:text="Record Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:id="@+id/leaderboard">
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="24dp"
+        android:id="@+id/Record_Score"/>
 
-
-        <Button
-            android:text="Record Score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/linearLayout"
-            android:layout_toEndOf="@+id/linearLayout"
-            android:id="@+id/Record_Score"/>
-    </FrameLayout>
+    <Button
+        android:text="Show Leaderboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ShowLeaderboard"
+        android:layout_alignBottom="@+id/Record_Score"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout"/>
 
 
 </RelativeLayout>

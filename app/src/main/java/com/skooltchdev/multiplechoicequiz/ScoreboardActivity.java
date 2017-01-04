@@ -1,7 +1,9 @@
 package com.skooltchdev.multiplechoicequiz;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     private TextView mFinalScoreBox;
     private Button mStartAgain;
     private Button mRecordScore;
+    private Button mShowLeaderboard;
     DatabaseHelper LeaderboardDb;
 
     @Override
@@ -22,6 +25,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scoreboard);
         mStartAgain = (Button)findViewById(R.id.start_button);
         mRecordScore = (Button)findViewById(R.id.Record_Score);
+        mShowLeaderboard = (Button)findViewById(R.id.ShowLeaderboard);
         LeaderboardDb = new DatabaseHelper(ScoreboardActivity.this);
 
         Intent i = getIntent();
@@ -41,6 +45,7 @@ public class ScoreboardActivity extends AppCompatActivity {
             }
 
         });
+        viewAll();
 
 
     }
@@ -62,5 +67,39 @@ public class ScoreboardActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void viewAll () {
+
+        mShowLeaderboard.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Cursor res = LeaderboardDb.getAllData();
+                if (res.getCount() == 0) {
+                    //Show message that there are no scores at the moment
+                    ShowMessage("Error", "No Scores found");
+                    return;
+                }
+                StringBuffer buffer = new StringBuffer();
+                while (res.moveToNext()) {
+                    buffer.append("Id:"+ res.getString(0)+"\n");
+                    buffer.append("Name:"+ res.getString(1)+"\n");
+                    buffer.append("Score:"+ res.getString(2)+"\n");
+                }
+
+                ShowMessage("Data",buffer.toString());
+
+            }
+
+        });
+
+    }
+
+    public void ShowMessage(String title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 }

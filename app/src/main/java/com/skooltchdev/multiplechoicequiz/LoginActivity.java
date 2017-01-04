@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
                 EditText mUserName;
                 mUserName = (EditText) findViewById(R.id.username);
                 String Player = mUserName.getText().toString();
-                Intent i = new Intent(LoginActivity.this, QuizActivity.class);
+                Intent i = new Intent(LoginActivity.this, QuestionChooserActivity.class);
                 i.putExtra("Username", Player);
                 startActivity(i);
 

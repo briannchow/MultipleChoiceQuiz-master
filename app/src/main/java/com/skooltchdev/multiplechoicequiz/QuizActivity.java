@@ -26,8 +26,9 @@ public class QuizActivity extends AppCompatActivity {
     private TextView mPlayerScore;
     private String mAnswer;
     private int mScore = 0;
-    private int mQuestionNumber = 0;
+    private int mQuestionNumber;
     public final static String EXTRA_QUIZ_SCORE = "com.example.MultipleChoiceQuiz-master.SCORE";
+    private boolean mIsCheater;
 
 
     @Override
@@ -44,6 +45,10 @@ public class QuizActivity extends AppCompatActivity {
         mButtonCheat =(Button)findViewById(R.id.cheat);
         mMoviePoster = (ImageView) findViewById(R.id.Poster1);
         mPlayerScore = (TextView) findViewById(R.id.score_text);
+        Intent GetQnNo = getIntent();
+        mQuestionNumber = GetQnNo.getIntExtra("Question No.", 0);
+        mIsCheater = false;
+
 
 
         updateQuestion();
@@ -140,6 +145,7 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i2 = new Intent(QuizActivity.this, CheatActivity.class);
                 i2.putExtra("show_answer", mAnswer);
+                i2.putExtra("Question Number", mQuestionNumber);
                 //startActivity(i);
                 startActivity(i2);
 
@@ -159,6 +165,9 @@ public class QuizActivity extends AppCompatActivity {
             Player = "Donkey Teeth";
         }
 
+
+
+
         if (mQuestionNumber < mQuestionLibrary.getNumOfQuestions()) {
             mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
             mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
@@ -167,8 +176,7 @@ public class QuizActivity extends AppCompatActivity {
             mButtonChoice3.setText(mQuestionLibrary.getChoice3(mQuestionNumber));
             mButtonChoice4.setText(mQuestionLibrary.getChoice4(mQuestionNumber));
             mPlayerScore.setText(Player + "'s " +"Score:");
-            mQuestionNumber++;
-            mMoviePoster.setImageResource(R.drawable.titanic_2_2d_pack_shot1);
+            //mMoviePoster.setImageResource(R.drawable.titanic_2_2d_pack_shot1);
 
         } else {
             // call for score board
@@ -181,6 +189,14 @@ public class QuizActivity extends AppCompatActivity {
 
 
     private void updateScore(int point) {
-        mScoreView.setText("" + mScore);
+        Intent GetCheaterStatus = getIntent();
+        mIsCheater = GetCheaterStatus.getBooleanExtra("Was Ans Shown", false);
+        if(mIsCheater == false) {
+            mScoreView.setText("" + mScore);
+        } else {
+            mScoreView.setText("Cheater");
+        }
+
+
     }
 }
