@@ -26,9 +26,22 @@ public class QuizActivity extends AppCompatActivity {
     private TextView mPlayerScore;
     private String mAnswer;
     private int mScore = 0;
+    private int mNewScore = 0;
     private int mQuestionNumber;
     public final static String EXTRA_QUIZ_SCORE = "com.example.MultipleChoiceQuiz-master.SCORE";
     private boolean mIsCheater;
+    Boolean AttemptedQn1;
+    Boolean AttemptedQn2;
+    Boolean AttemptedQn3;
+    Boolean AttemptedQn4;
+    Boolean AttemptedQn5;
+    Boolean AttemptedQn6;
+    Boolean AttemptedQn7;
+    Boolean AttemptedQn8;
+    Boolean AttemptedQn9;
+    Boolean AttemptedQn10;
+
+
 
 
     @Override
@@ -47,10 +60,17 @@ public class QuizActivity extends AppCompatActivity {
         mPlayerScore = (TextView) findViewById(R.id.score_text);
         Intent GetQnNo = getIntent();
         mQuestionNumber = GetQnNo.getIntExtra("Question No.", 0);
+        mScore = GetQnNo.getIntExtra("Score", 0);
         mIsCheater = false;
 
 
 
+
+        Intent GetCheaterStatus = getIntent();
+        mIsCheater = GetCheaterStatus.getBooleanExtra("Was Ans Shown", false);
+
+
+        updateScore(mScore);
         updateQuestion();
 
 
@@ -61,16 +81,22 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view){
                 //My logic for Button goes in here
 
-                if (mButtonChoice1.getText() == mAnswer){
-                    mScore = mScore + 1;
+                if (mButtonChoice1.getText() == mAnswer && mIsCheater == false){
+                    mNewScore = mScore + 1;
                     updateScore(mScore);
                     updateQuestion();
                 //This line of code is optiona
                     Toast.makeText(QuizActivity.this, "correct", Toast.LENGTH_SHORT).show();
+                    BackToQnChooser(mNewScore);
 
-                }else {
+                }else if (mButtonChoice1.getText() == mAnswer && mIsCheater == true){
+                    Toast.makeText(QuizActivity.this, "Using a cheat won't increase your score", Toast.LENGTH_SHORT).show();
+                    updateQuestion();
+                    BackToQnChooser(mScore);
+                } else {
                     Toast.makeText(QuizActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                     updateQuestion();
+                    BackToQnChooser(mScore);
                 }
             }
         });
@@ -83,16 +109,22 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view){
                 //My logic for Button goes in here
 
-                if (mButtonChoice2.getText() == mAnswer){
-                    mScore = mScore + 1;
+                if (mButtonChoice2.getText() == mAnswer && mIsCheater == false){
+                    mNewScore = mScore + 1;
                     updateScore(mScore);
                     updateQuestion();
                     //This line of code is optiona
                     Toast.makeText(QuizActivity.this, "correct", Toast.LENGTH_SHORT).show();
+                    BackToQnChooser(mNewScore);
 
-                }else {
+                }else if (mButtonChoice2.getText() == mAnswer && mIsCheater == true){
+                    Toast.makeText(QuizActivity.this, "Using a cheat won't increase your score", Toast.LENGTH_SHORT).show();
+                    updateQuestion();
+                    BackToQnChooser(mScore);
+                } else {
                     Toast.makeText(QuizActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                     updateQuestion();
+                    BackToQnChooser(mScore);
                 }
             }
         });
@@ -106,16 +138,22 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view){
                 //My logic for Button goes in here
 
-                if (mButtonChoice3.getText() == mAnswer){
-                    mScore = mScore + 1;
+                if (mButtonChoice3.getText() == mAnswer && mIsCheater == false){
+                    mNewScore = mScore + 1;
                     updateScore(mScore);
                     updateQuestion();
+                    BackToQnChooser(mNewScore);
                     //This line of code is optiona
                     Toast.makeText(QuizActivity.this, "correct", Toast.LENGTH_SHORT).show();
 
-                }else {
+                }else if (mButtonChoice3.getText() == mAnswer && mIsCheater == true){
+                    Toast.makeText(QuizActivity.this, "Using a cheat won't increase your score", Toast.LENGTH_SHORT).show();
+                    updateQuestion();
+                    BackToQnChooser(mScore);
+                } else {
                     Toast.makeText(QuizActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                     updateQuestion();
+                    BackToQnChooser(mScore);
                 }
             }
         });
@@ -125,16 +163,22 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view){
                 //My logic for Button goes in here
 
-                if (mButtonChoice4.getText() == mAnswer){
-                    mScore = mScore + 1;
-                    updateScore(mScore);
+                if (mButtonChoice4.getText() == mAnswer && mIsCheater == false){
+                    mNewScore = mScore + 1;
+                    updateScore(mNewScore);
                     updateQuestion();
                     //This line of code is optiona
                     Toast.makeText(QuizActivity.this, "correct", Toast.LENGTH_SHORT).show();
+                    BackToQnChooser(mNewScore);
 
-                }else {
+                }else if (mButtonChoice4.getText() == mAnswer && mIsCheater == true){
+                    Toast.makeText(QuizActivity.this, "Using a cheat won't increase your score", Toast.LENGTH_SHORT).show();
+                    updateQuestion();
+                    BackToQnChooser(mScore);
+                } else {
                     Toast.makeText(QuizActivity.this, "wrong", Toast.LENGTH_SHORT).show();
                     updateQuestion();
+                    BackToQnChooser(mScore);
                 }
             }
         });
@@ -144,8 +188,11 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i2 = new Intent(QuizActivity.this, CheatActivity.class);
+                String Player = getIntent().getStringExtra("Username");
                 i2.putExtra("show_answer", mAnswer);
                 i2.putExtra("Question Number", mQuestionNumber);
+                i2.putExtra("Username", Player);
+                i2.putExtra("Score", mScore);
                 //startActivity(i);
                 startActivity(i2);
 
@@ -168,7 +215,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
 
-        if (mQuestionNumber < mQuestionLibrary.getNumOfQuestions()) {
+        if (mQuestionNumber <= mQuestionLibrary.getNumOfQuestions()) {
             mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
             mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
             mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
@@ -176,6 +223,7 @@ public class QuizActivity extends AppCompatActivity {
             mButtonChoice3.setText(mQuestionLibrary.getChoice3(mQuestionNumber));
             mButtonChoice4.setText(mQuestionLibrary.getChoice4(mQuestionNumber));
             mPlayerScore.setText(Player + "'s " +"Score:");
+
             //mMoviePoster.setImageResource(R.drawable.titanic_2_2d_pack_shot1);
 
         } else {
@@ -189,14 +237,37 @@ public class QuizActivity extends AppCompatActivity {
 
 
     private void updateScore(int point) {
-        Intent GetCheaterStatus = getIntent();
-        mIsCheater = GetCheaterStatus.getBooleanExtra("Was Ans Shown", false);
-        if(mIsCheater == false) {
-            mScoreView.setText("" + mScore);
-        } else {
-            mScoreView.setText("Cheater");
-        }
+        mScoreView.setText("" + point);
+    }
+
+    private void BackToQnChooser(int mScore) {
+        Intent BackToQnChooser = new Intent(QuizActivity.this, QuestionChooserActivity.class);
+        BackToQnChooser.putExtra("Username", getIntent().getStringExtra("Username"));
+        BackToQnChooser.putExtra("Score", mScore);
+        Boolean AttemptedQn1 = getIntent().getBooleanExtra("Qn1", false);
+        Boolean AttemptedQn2 = getIntent().getBooleanExtra("Qn2", false);
+        Boolean AttemptedQn3 = getIntent().getBooleanExtra("Qn3", false);
+        Boolean AttemptedQn4 = getIntent().getBooleanExtra("Qn4", false);
+        Boolean AttemptedQn5 = getIntent().getBooleanExtra("Qn5", false);
+        Boolean AttemptedQn6 = getIntent().getBooleanExtra("Qn6", false);
+        Boolean AttemptedQn7 = getIntent().getBooleanExtra("Qn7", false);
+        Boolean AttemptedQn8 = getIntent().getBooleanExtra("Qn8", false);
+        Boolean AttemptedQn9 = getIntent().getBooleanExtra("Qn9", false);
+        Boolean AttemptedQn10 = getIntent().getBooleanExtra("Qn10", false);
+
+        BackToQnChooser.putExtra("Qn1",AttemptedQn1);
+        BackToQnChooser.putExtra("Qn2", AttemptedQn2);
+        BackToQnChooser.putExtra("Qn3", AttemptedQn3);
+        BackToQnChooser.putExtra("Qn4", AttemptedQn4);
+        BackToQnChooser.putExtra("Qn5", AttemptedQn5);
+        BackToQnChooser.putExtra("Qn6", AttemptedQn6);
+        BackToQnChooser.putExtra("Qn7", AttemptedQn7);
+        BackToQnChooser.putExtra("Qn8", AttemptedQn8);
+        BackToQnChooser.putExtra("Qn9", AttemptedQn9);
+        BackToQnChooser.putExtra("Qn10", AttemptedQn10);
 
 
+
+        startActivity(BackToQnChooser);
     }
 }

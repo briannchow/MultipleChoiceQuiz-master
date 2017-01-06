@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -35,6 +36,7 @@ public class CheatActivity extends AppCompatActivity {
 
                 mAnswerDisplay.setText(QuestionAnswer);
                 mAnswerWasShown = true;
+                Toast.makeText(CheatActivity.this, "Cheating is wrong", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -46,10 +48,15 @@ public class CheatActivity extends AppCompatActivity {
 
                 Intent GetQnNo = getIntent();
                 mQuestionNumber = GetQnNo.getIntExtra("Question Number", 0);
+                String Player = getIntent().getStringExtra("Username");
+                int Score = getIntent().getIntExtra("Score", 0);
 
                 Intent i = new Intent(CheatActivity.this, QuizActivity.class);
-                i.putExtra("Question No.", mAnswerWasShown);
+                i.putExtra("Question No.", mQuestionNumber);
                 i.putExtra("Was Ans Shown", true);
+                i.putExtra("Username", Player);
+                i.putExtra("Score", Score);
+
 
                 //startActivity(i);
                 startActivity(i);
