@@ -56,6 +56,26 @@ public class CheatActivity extends AppCompatActivity {
                 i.putExtra("Was Ans Shown", true);
                 i.putExtra("Username", Player);
                 i.putExtra("Score", Score);
+                Boolean AttemptedQn1 = getIntent().getBooleanExtra("Qn1", false);
+                Boolean AttemptedQn2 = getIntent().getBooleanExtra("Qn2", false);
+                Boolean AttemptedQn3 = getIntent().getBooleanExtra("Qn3", false);
+                Boolean AttemptedQn4 = getIntent().getBooleanExtra("Qn4", false);
+                Boolean AttemptedQn5 = getIntent().getBooleanExtra("Qn5", false);
+                Boolean AttemptedQn6 = getIntent().getBooleanExtra("Qn6", false);
+                Boolean AttemptedQn7 = getIntent().getBooleanExtra("Qn7", false);
+                Boolean AttemptedQn8 = getIntent().getBooleanExtra("Qn8", false);
+                Boolean AttemptedQn9 = getIntent().getBooleanExtra("Qn9", false);
+                Boolean AttemptedQn10 = getIntent().getBooleanExtra("Qn10", false);
+                i.putExtra("Qn1",AttemptedQn1);
+                i.putExtra("Qn2", AttemptedQn2);
+                i.putExtra("Qn3", AttemptedQn3);
+                i.putExtra("Qn4", AttemptedQn4);
+                i.putExtra("Qn5", AttemptedQn5);
+                i.putExtra("Qn6", AttemptedQn6);
+                i.putExtra("Qn7", AttemptedQn7);
+                i.putExtra("Qn8", AttemptedQn8);
+                i.putExtra("Qn9", AttemptedQn9);
+                i.putExtra("Qn10", AttemptedQn10);
 
 
                 //startActivity(i);

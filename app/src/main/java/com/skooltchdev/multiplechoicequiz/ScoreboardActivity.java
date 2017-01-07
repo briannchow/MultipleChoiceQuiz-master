@@ -17,6 +17,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     private Button mStartAgain;
     private Button mRecordScore;
     private Button mShowLeaderboard;
+    private Button mClearLeaderboard;
     DatabaseHelper LeaderboardDb;
 
     @Override
@@ -26,7 +27,8 @@ public class ScoreboardActivity extends AppCompatActivity {
         mStartAgain = (Button)findViewById(R.id.start_button);
         mRecordScore = (Button)findViewById(R.id.Record_Score);
         mShowLeaderboard = (Button)findViewById(R.id.ShowLeaderboard);
-        LeaderboardDb = new DatabaseHelper(ScoreboardActivity.this);
+        mClearLeaderboard = (Button) findViewById(R.id.ClearBoard);
+        LeaderboardDb = new DatabaseHelper(this);
 
         Intent i = getIntent();
         int Score = i.getIntExtra("Get_Score", 0);
@@ -45,7 +47,42 @@ public class ScoreboardActivity extends AppCompatActivity {
             }
 
         });
-        viewAll();
+
+        /*Cursor res = LeaderboardDb.getAllData();
+                if (res.getCount() == 0) {
+                    //Show message that there are no scores at the moment
+                    ShowMessage("Error", "No Scores found");
+                    return;
+                }
+                StringBuffer buffer = new StringBuffer();
+                while (res.moveToNext()) {
+                    buffer.append("Id:"+ res.getString(0)+"\n");
+                    buffer.append("Name:"+ res.getString(1)+"\n");
+                    buffer.append("Score:"+ res.getString(2)+"\n");
+                }
+
+                ShowMessage("Data",buffer.toString());*/
+
+        mShowLeaderboard.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ScoreboardActivity.this, ViewLeaderboard.class);
+                startActivity(i);
+
+
+            }
+
+        });
+
+        mClearLeaderboard.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                LeaderboardDb.deleteAll();
+
+
+            }
+
+        });
 
 
     }
@@ -58,10 +95,10 @@ public class ScoreboardActivity extends AppCompatActivity {
                 String Player = i.getStringExtra("Name");
                 int Score = i.getIntExtra("Get_Score", 0);
                 boolean isInserted = LeaderboardDb.insertData(Player, Score);
-                if (isInserted =true) {
+                if (isInserted == true) {
                     Toast.makeText(ScoreboardActivity.this, "Score was recorded", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(ScoreboardActivity.this, "Sth fked up", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ScoreboardActivity.this, "Sth went wrong", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -69,12 +106,12 @@ public class ScoreboardActivity extends AppCompatActivity {
         });
     }
 
-    public void viewAll () {
+    /*public void viewAll () {
 
         mShowLeaderboard.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Cursor res = LeaderboardDb.getAllData();
+                /*Cursor res = LeaderboardDb.getAllData();
                 if (res.getCount() == 0) {
                     //Show message that there are no scores at the moment
                     ShowMessage("Error", "No Scores found");
@@ -88,12 +125,15 @@ public class ScoreboardActivity extends AppCompatActivity {
                 }
 
                 ShowMessage("Data",buffer.toString());
+                Intent i = new Intent(ScoreboardActivity.this, ViewLeaderboard.class);
+                startActivity(i);
+
 
             }
 
         });
 
-    }
+    }*/
 
     public void ShowMessage(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

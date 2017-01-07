@@ -22,6 +22,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mButtonChoice3;
     private Button mButtonChoice4;
     private Button mButtonCheat;
+    private Button mButtonSkip;
     private ImageView mMoviePoster;
     private TextView mPlayerScore;
     private String mAnswer;
@@ -30,6 +31,7 @@ public class QuizActivity extends AppCompatActivity {
     private int mQuestionNumber;
     public final static String EXTRA_QUIZ_SCORE = "com.example.MultipleChoiceQuiz-master.SCORE";
     private boolean mIsCheater;
+
     Boolean AttemptedQn1;
     Boolean AttemptedQn2;
     Boolean AttemptedQn3;
@@ -56,6 +58,7 @@ public class QuizActivity extends AppCompatActivity {
         mButtonChoice3 = (Button)findViewById(R.id.choice3);
         mButtonChoice4 = (Button)findViewById(R.id.choice4);
         mButtonCheat =(Button)findViewById(R.id.cheat);
+        mButtonSkip=(Button)findViewById(R.id.skip_button);
         mMoviePoster = (ImageView) findViewById(R.id.Poster1);
         mPlayerScore = (TextView) findViewById(R.id.score_text);
         Intent GetQnNo = getIntent();
@@ -193,8 +196,37 @@ public class QuizActivity extends AppCompatActivity {
                 i2.putExtra("Question Number", mQuestionNumber);
                 i2.putExtra("Username", Player);
                 i2.putExtra("Score", mScore);
+                Boolean AttemptedQn1 = getIntent().getBooleanExtra("Qn1", false);
+                Boolean AttemptedQn2 = getIntent().getBooleanExtra("Qn2", false);
+                Boolean AttemptedQn3 = getIntent().getBooleanExtra("Qn3", false);
+                Boolean AttemptedQn4 = getIntent().getBooleanExtra("Qn4", false);
+                Boolean AttemptedQn5 = getIntent().getBooleanExtra("Qn5", false);
+                Boolean AttemptedQn6 = getIntent().getBooleanExtra("Qn6", false);
+                Boolean AttemptedQn7 = getIntent().getBooleanExtra("Qn7", false);
+                Boolean AttemptedQn8 = getIntent().getBooleanExtra("Qn8", false);
+                Boolean AttemptedQn9 = getIntent().getBooleanExtra("Qn9", false);
+                Boolean AttemptedQn10 = getIntent().getBooleanExtra("Qn10", false);
+                i2.putExtra("Qn1",AttemptedQn1);
+                i2.putExtra("Qn2", AttemptedQn2);
+                i2.putExtra("Qn3", AttemptedQn3);
+                i2.putExtra("Qn4", AttemptedQn4);
+                i2.putExtra("Qn5", AttemptedQn5);
+                i2.putExtra("Qn6", AttemptedQn6);
+                i2.putExtra("Qn7", AttemptedQn7);
+                i2.putExtra("Qn8", AttemptedQn8);
+                i2.putExtra("Qn9", AttemptedQn9);
+                i2.putExtra("Qn10", AttemptedQn10);
                 //startActivity(i);
                 startActivity(i2);
+
+            }
+        });
+
+        mButtonSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BackToQnChooser(mScore);
+                Toast.makeText(QuizActivity.this, "skipped", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -216,6 +248,19 @@ public class QuizActivity extends AppCompatActivity {
 
 
         if (mQuestionNumber <= mQuestionLibrary.getNumOfQuestions()) {
+            int[] mArray = new int[10];
+            mArray[0] = R.drawable.babes_for_toyland_qn1;
+            mArray[1] = R.drawable.theodore_rex_qn2;
+            mArray[2] = R.drawable.grizzly_qn3;
+            mArray[3] = R.drawable.titanic_ii_qn_4;
+            mArray[4] = R.drawable.samurai_cop_qn_5;
+            mArray[5] = R.drawable.troll2_qn6;
+            mArray[6] = R.drawable.manos_hof_qn7;
+            mArray[7] = R.drawable.zombeavers_qn8;
+            mArray[8] = R.drawable.santa_with_muscles_qn9;
+            mArray[9] = R.drawable.ex_machina_qn10;
+
+
             mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
             mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
             mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
@@ -223,8 +268,7 @@ public class QuizActivity extends AppCompatActivity {
             mButtonChoice3.setText(mQuestionLibrary.getChoice3(mQuestionNumber));
             mButtonChoice4.setText(mQuestionLibrary.getChoice4(mQuestionNumber));
             mPlayerScore.setText(Player + "'s " +"Score:");
-
-            //mMoviePoster.setImageResource(R.drawable.titanic_2_2d_pack_shot1);
+            mMoviePoster.setImageResource(mArray[mQuestionNumber]);
 
         } else {
             // call for score board

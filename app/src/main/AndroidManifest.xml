@@ -27,6 +27,8 @@
         </activity>
         <activity android:name=".QuestionChooserActivity">
         </activity>
+        <activity android:name=".ViewLeaderboard">
+        </activity>
     </application>
 
 </manifest>
