@@ -31,43 +31,29 @@
     </LinearLayout>
 
 
-    <EditText
+
+
+
+
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="What is your password?"
-        android:layout_weight="1"
-        android:id="@+id/password"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_centerHorizontal="true"/>
+        android:text="Start Here"
+        android:textSize="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
         android:id="@+id/start_button"
-        android:layout_below="@+id/password"
-        android:layout_alignLeft="@+id/Signup"
-        android:layout_alignStart="@+id/Signup"
-        android:layout_marginTop="30dp"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/Signup"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="42dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOGIN HERE"
-        android:textSize="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView"
-        />
+        android:layout_below="@+id/linearLayout2"
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>
