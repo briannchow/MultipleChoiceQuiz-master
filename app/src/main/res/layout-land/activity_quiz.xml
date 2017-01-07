@@ -43,22 +43,14 @@
         android:text="Which thing is alive?"
         android:textSize="15sp"
         android:padding="5dp"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/question"/>
-
-
-    <ImageView
-        android:id="@+id/Poster1"
-        android:layout_width="match_parent"
-        android:layout_height="169dp"
-        android:src="@drawable/babes_for_toyland_qn1"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_weight="0.85"/>
+        android:id="@+id/question"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="91dp"
+        android:layout_height="200dp"
         android:padding="8dp"
         android:layout_marginBottom="40dp">
 
@@ -114,12 +106,13 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        >
+        <ImageView
+            android:id="@+id/Poster1"
+            android:layout_width="match_parent"
+            android:layout_height="269dp"
+            android:src="@drawable/babes_for_toyland_qn1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -127,21 +120,29 @@
             android:text="Cheat"
             android:background="#B71C1C"
             android:textColor="#fff"
-            android:padding="8dp"
+            android:padding="1dp"
             android:id="@+id/cheat"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="18dp"
-            android:layout_marginStart="18dp"/>
+            android:layout_alignParentStart="true"/>
 
         <Button
             android:text="SKIP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/skip_button"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        >
+
     </RelativeLayout>
 
 
