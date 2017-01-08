@@ -48,21 +48,6 @@ public class ScoreboardActivity extends AppCompatActivity {
 
         });
 
-        /*Cursor res = LeaderboardDb.getAllData();
-                if (res.getCount() == 0) {
-                    //Show message that there are no scores at the moment
-                    ShowMessage("Error", "No Scores found");
-                    return;
-                }
-                StringBuffer buffer = new StringBuffer();
-                while (res.moveToNext()) {
-                    buffer.append("Id:"+ res.getString(0)+"\n");
-                    buffer.append("Name:"+ res.getString(1)+"\n");
-                    buffer.append("Score:"+ res.getString(2)+"\n");
-                }
-
-                ShowMessage("Data",buffer.toString());*/
-
         mShowLeaderboard.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -106,34 +91,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         });
     }
 
-    /*public void viewAll () {
 
-        mShowLeaderboard.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                /*Cursor res = LeaderboardDb.getAllData();
-                if (res.getCount() == 0) {
-                    //Show message that there are no scores at the moment
-                    ShowMessage("Error", "No Scores found");
-                    return;
-                }
-                StringBuffer buffer = new StringBuffer();
-                while (res.moveToNext()) {
-                    buffer.append("Id:"+ res.getString(0)+"\n");
-                    buffer.append("Name:"+ res.getString(1)+"\n");
-                    buffer.append("Score:"+ res.getString(2)+"\n");
-                }
-
-                ShowMessage("Data",buffer.toString());
-                Intent i = new Intent(ScoreboardActivity.this, ViewLeaderboard.class);
-                startActivity(i);
-
-
-            }
-
-        });
-
-    }*/
 
     public void ShowMessage(String title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
